@@ -1,8 +1,11 @@
 package br.com.apirestfull.apigateway.controller;
 
+import br.com.apirestfull.apigateway.data.vo.PersonVO;
+import br.com.apirestfull.apigateway.data.vov2.PersonVOV2;
 import br.com.apirestfull.apigateway.model.Person;
 import br.com.apirestfull.apigateway.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,35 +20,38 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll(){
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PersonVO> findAll(){
         return personService.findAll();
     }
 
-
-    @RequestMapping(path = "{id}", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public void findById(@PathVariable(value = "id") Long id){
-        personService.findById(id);
+    @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonVO findById(@PathVariable(value = "id") Long id){
+        return personService.findById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person){
+    public PersonVO create(@RequestBody PersonVO person){
         return personService.create(person);
     }
 
-    @RequestMapping(method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE,value = "/v2")
+    public PersonVOV2 create(@RequestBody PersonVOV2 person){
+        return personService.create(person);
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person){
+    public PersonVO update(@RequestBody PersonVO person){
         return personService.update(person);
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable(value = "id")Long id){
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity<?> delete(@PathVariable(value = "id")Long id){
         personService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
