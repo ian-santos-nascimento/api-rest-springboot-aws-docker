@@ -33,12 +33,6 @@ public class PersonController {
         return personService.create(person);
     }
 
-    @PostMapping(consumes = {MediaType.MEDIA_TYPE_JSON, MediaType.MEDIA_TYPE_XML,MediaType.MEDIA_TYPE_YAML },
-            produces = {MediaType.MEDIA_TYPE_JSON, MediaType.MEDIA_TYPE_XML,MediaType.MEDIA_TYPE_YAML },value = "/v2")
-    public PersonVOV2 create(@RequestBody PersonVOV2 person){
-        return personService.create(person);
-    }
-
     @PutMapping(consumes = {MediaType.MEDIA_TYPE_JSON, MediaType.MEDIA_TYPE_XML,MediaType.MEDIA_TYPE_YAML },
             produces = {MediaType.MEDIA_TYPE_JSON, MediaType.MEDIA_TYPE_XML,MediaType.MEDIA_TYPE_YAML })
     public PersonVO update(@RequestBody PersonVO person){

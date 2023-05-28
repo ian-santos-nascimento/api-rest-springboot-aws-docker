@@ -33,4 +33,12 @@ public class CustomizedGlobalException extends ResponseEntityExceptionHandler {
                 request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(RequiredObjectNullException.class)
+    public final ResponseEntity<ExceptionResponse> handleNullObjectsException(Exception e,
+                                                                           WebRequest request){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), e.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 }
