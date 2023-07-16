@@ -8,5 +8,7 @@ CREATE TABLE IF NOT EXISTS public.person
     gender VARCHAR(6) NOT NULL,
     CONSTRAINT person_pkey PRIMARY KEY (id)
     );
-CREATE SEQUENCE person_id_seq;
+CREATE SEQUENCE person_id_seq MINVALUE 2;
+ALTER TABLE person ALTER id SET DEFAULT nextval('person_id_seq');
+ALTER SEQUENCE person_id_seq OWNED BY person.id
 
