@@ -1,0 +1,21 @@
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      dialect: org.hibernate.dialect.PostgreSQL81Dialect
+      show_sql: false
+  datasource:
+    driverClassName: org.postgresql.Driver
+  sql:
+    init:
+      platform: postgres
+springdoc:
+  paths-to-match: /api/**/v1/**
+  swagger-ui:
+    use-root-path: true
+server:
+  port: 8888
